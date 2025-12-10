@@ -12,21 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chitietgiohang', function (Blueprint $table) {
-            $table->string('MaCTGH', 50)->primary(); 
-            $table->string('MaSP');
-            $table->foreign('MaSP')->references('MaSP')->on('sanpham')->onDelete('cascade');
+    $table->string('MaCTGH', 10)->primary();
 
-            // Khóa ngoại liên kết đến bảng KhachHang
-            // Giả định MaKH là string
-            $table->string('MaKH');
-            $table->foreign('MaKH')->references('MaKH')->on('khach_hang')->onDelete('cascade');
+    $table->string('MaSP', 10);
+    $table->string('MaKH', 10);
 
-            // Các cột khác
-            $table->integer('SoLuong')->default(1); 
-            $table->decimal('ThanhTien', 10, 0); 
-            
-            $table->timestamps();
-        });
+    $table->integer('SoLuong')->default(1);
+    $table->decimal('ThanhTien', 10, 0);
+
+    $table->timestamps();
+
+    // Foreign keys
+    $table->foreign('MaSP')->references('MaSP')->on('sanpham')->onDelete('cascade');
+    $table->foreign('MaKH')->references('MaKH')->on('khach_hang')->onDelete('cascade');
+});
     }
 
     /**
